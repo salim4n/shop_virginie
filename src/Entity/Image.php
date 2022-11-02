@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use App\Repository\ImageRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ORM\Entity(repositoryClass: ImageRepository::class)]
 class Image
@@ -11,9 +12,11 @@ class Image
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
+    #[Groups("post")]
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
+    #[Groups("post")]
     private ?string $url = null;
 
     #[ORM\ManyToOne(inversedBy: 'images', cascade: ['persist', 'remove'])]

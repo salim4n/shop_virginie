@@ -7,6 +7,8 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use JsonSerializable;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ORM\Entity(repositoryClass: ArticleRepository::class)]
 class Article
@@ -14,24 +16,31 @@ class Article
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
+    #[Groups("post")]
     private ?int $id = null;
 
     #[ORM\Column(length: 50)]
+    #[Groups("post")]
     private ?string $name = null;
 
     #[ORM\Column(type: Types::TEXT, nullable: true)]
+    #[Groups("post")]
     private ?string $description = null;
 
     #[ORM\Column(length: 50, nullable: true)]
+    #[Groups("post")]
     private ?string $matiere = null;
 
     #[ORM\Column]
+    #[Groups("post")]
     private ?float $price = null;
 
     #[ORM\ManyToOne(inversedBy: 'articles', cascade: ['persist', 'remove'])]
+    #[Groups("post")]
     private ?Category $category = null;
 
     #[ORM\OneToMany(mappedBy: 'article', targetEntity: Image::class)]
+    #[Groups("post")]
     private Collection $images;
 
     public function __construct()
